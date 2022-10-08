@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ExpenseMonitoring</string>
+    <string name="number_format_exception">Wrong number format selected!</string>
+    <string name="month_selector">Month</string>
+    <string name="year_selector">Year</string>
+    <string name="dialog_period_selector_title">Choose month and year of period:</string>
+    <string name="action_confirm">Confirm</string>
+</resources>
