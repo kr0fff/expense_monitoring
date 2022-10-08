@@ -11,6 +11,6 @@ import java.time.Year
 )
 data class Categories(
     @PrimaryKey(autoGenerate = true) var id: Long,
-    @ColumnInfo(name = "month") var month: Month,
-    @ColumnInfo(name = "year") var year: Year
+    @ColumnInfo(name = "month") var month: Int,
+    @ColumnInfo(name = "year") var year: Int
 )

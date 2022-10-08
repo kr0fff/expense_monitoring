@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
+import com.example.expensemonitoring.Dialogs.PeriodSelectionDialogFragment
 import com.example.expensemonitoring.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -14,6 +16,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        PeriodSelectionDialogFragment.show(supportFragmentManager)
+        PeriodSelectionDialogFragment.setupListener(supportFragmentManager, this){
+            Log.d("MONTH_AND_YEAR", it.toString())
+        }
     }
 }
