@@ -1,8 +1,11 @@
 package com.example.expensemonitoring.Dialogs
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
+import android.widget.DatePicker
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -28,6 +31,7 @@ class PeriodSelectionDialogFragment: DialogFragment() {
         yearPicker.maxValue = year
         yearPicker.value = year
 
+        Log.d("YEAR_DIALOG", yearPicker.value.toString())
 
         return AlertDialog.Builder(requireContext())
             .setCancelable(true)
@@ -35,17 +39,15 @@ class PeriodSelectionDialogFragment: DialogFragment() {
             .setView(view.root)
             .setPositiveButton(R.string.action_confirm) { _, _ ->
                 parentFragmentManager.setFragmentResult(REQUEST_KEY,
-                    bundleOf(MONTH_VALUE_RESPONSE to monthPicker.value,
-                        YEAR_VALUE_RESPONSE to yearPicker.value))
+                    bundleOf(MONTH_YEAR_VALUE_RESPONSE to intArrayOf(monthPicker.value, yearPicker.value)))
             }
             .create()
     }
 
+
     companion object {
         @JvmStatic private val TAG = PeriodSelectionDialogFragment::class.java.simpleName
-        @JvmStatic private val MONTH_VALUE_RESPONSE = "MONTH_VALUE_RESPONSE"
-        @JvmStatic private val YEAR_VALUE_RESPONSE = "YEAR_VALUE_RESPONSE"
-        // @JvmStatic private val ARG_VOLUME = "ARG_VOLUME"
+        @JvmStatic private val MONTH_YEAR_VALUE_RESPONSE = "MONTH_YEAR_VALUE_RESPONSE"
 
         @JvmStatic val REQUEST_KEY = "$TAG:defaultRequestKey"
 
@@ -54,10 +56,10 @@ class PeriodSelectionDialogFragment: DialogFragment() {
             dialogFragment.show(manager, TAG)
         }
 
-        fun setupListener(manager: FragmentManager, lifecycleOwner: LifecycleOwner, listener: (Bundle?) -> Unit) {
+        fun setupListener(manager: FragmentManager, lifecycleOwner: LifecycleOwner, listener: (IntArray?) -> Unit) {
             manager.setFragmentResultListener(REQUEST_KEY, lifecycleOwner, FragmentResultListener { _, result ->
 
-                listener.invoke(result.getBundle(REQUEST_KEY))
+                listener.invoke(result.getIntArray(MONTH_YEAR_VALUE_RESPONSE))
             })
         }
     }
