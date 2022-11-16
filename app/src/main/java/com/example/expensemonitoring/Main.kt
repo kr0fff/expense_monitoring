@@ -1,31 +1,67 @@
 package com.example.expensemonitoring
 
 import kotlinx.coroutines.*
-import java.time.Month
+import kotlinx.coroutines.Dispatchers.Default
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import java.time.LocalDate
+import java.util.*
 
-fun main(){
-   var res = runBlocking {
-        val asyncPart = async {
-            return@async suspendComputation(6)
+private val mutex = Mutex()  // our hero ;-)
+private var counterWithMutex = 0
+private var counterNoMutex = 0
+
+fun main( ) {
+    val dates = listOf(
+        LocalDate.parse("2018-12-14"),
+        LocalDate.parse("2018-12-12"),
+        LocalDate.parse("2018-12-13"))
+
+    for (item in dates){
+        println(item::class.simpleName)
+    }
+}
+suspend fun mutexTest() {
+    val job1NoMutex = CoroutineScope(Default).launch {
+        for (i in 1..500) {
+            incrementCounterByTenNoMutex()
         }
-        asyncPart.await()
     }
 
-    print(res)
-}
-
-
-suspend fun suspendComputation(num: Int): Int {
-    var encounter = num
-    var res = 0
-    while (encounter > 0){
-        res += encounter
-        encounter--
+    val job2NoMutex = CoroutineScope(Default).launch {
+        for (i in 1..500) {
+            incrementCounterByTenNoMutex()
+        }
     }
-    return res
+
+    val job3WithMutex = CoroutineScope(Default).launch {
+        for (i in 1..500) {
+            incrementCounterByTenWithMutex()
+        }
+    }
+
+    val job4WithMutex = CoroutineScope(Default).launch {
+        for (i in 1..500) {
+            incrementCounterByTenWithMutex()
+        }
+    }
+
+    joinAll(job1NoMutex, job2NoMutex, job3WithMutex, job4WithMutex)
+
+    println("  No Mutex Tally: $counterNoMutex")
+    println("With Mutex Tally: $counterWithMutex")
 }
-fun String.intOrString() = try {
-    toDouble()
-} catch(e: NumberFormatException) {
-    null
+
+private suspend fun incrementCounterByTenWithMutex() {
+    mutex.withLock {
+        for (i in 0 until 10) {
+            counterWithMutex++
+        }
+    }
+}
+
+private fun incrementCounterByTenNoMutex() {
+    for (i in 0 until 10) {
+        counterNoMutex++
+    }
 }

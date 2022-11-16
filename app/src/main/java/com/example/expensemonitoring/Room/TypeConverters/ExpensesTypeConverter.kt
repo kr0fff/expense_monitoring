@@ -1,17 +1,16 @@
 package com.example.expensemonitoring.Room.TypeConverters
 
 import androidx.room.TypeConverter
+import java.time.LocalDate
 import java.util.*
 
 class ExpensesTypeConverter {
     @TypeConverter
-    fun fromDate(date: Date?): Long? {
-        return date?.time
+    fun fromDate(date: LocalDate?): String? {
+        return date?.toString()
     }
     @TypeConverter
-    fun toDate(millisSinceEpoch: Long?): Date? {
-        return millisSinceEpoch?.let {
-            Date(it)
-        }
+    fun toDate(dateFormat: String): LocalDate? {
+        return LocalDate.parse(dateFormat)
     }
 }
