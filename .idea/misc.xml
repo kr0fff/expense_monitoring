@@ -3,10 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Projects/ExpenseMonitoring/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.3609375" />
         <entry key="..\:/Projects/ExpenseMonitoring/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.3609375" />
         <entry key="..\:/Projects/ExpenseMonitoring/app/src/main/res/drawable/rounded_layout_corners.xml" value="0.3609375" />
-        <entry key="..\:/Projects/ExpenseMonitoring/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
+        <entry key="..\:/Projects/ExpenseMonitoring/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Projects/ExpenseMonitoring/app/src/main/res/layout/categories_list.xml" value="0.34479166666666666" />
         <entry key="..\:/Projects/ExpenseMonitoring/app/src/main/res/layout/expense_category_item.xml" value="0.33" />
+        <entry key="..\:/Projects/ExpenseMonitoring/app/src/main/res/layout/fragment_categories_list.xml" value="0.34479166666666666" />
         <entry key="..\:/Projects/ExpenseMonitoring/app/src/main/res/layout/fragment_period_selection.xml" value="0.32472826086956524" />
         <entry key="..\:/Projects/ExpenseMonitoring/app/src/main/res/layout/fragment_recycler_view.xml" value="0.34479166666666666" />
       </map>

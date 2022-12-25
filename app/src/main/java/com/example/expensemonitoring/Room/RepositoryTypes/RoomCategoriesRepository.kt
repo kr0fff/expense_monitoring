@@ -6,7 +6,7 @@ import com.example.expensemonitoring.Room.Dao.ExpensesDao
 class RoomCategoriesRepository(
     private val expensesDao: ExpensesDao
 ) {
-    private suspend fun getCategoriesRecords(): List<CategoriesTuple?>{
+    suspend fun getCategoriesRecords(): List<CategoriesTuple?>{
         return expensesDao.getCategories()
     }
 }

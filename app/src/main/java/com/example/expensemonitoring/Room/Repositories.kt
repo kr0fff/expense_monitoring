@@ -1,6 +1,7 @@
 package com.example.expensemonitoring.Room
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
 import com.example.expensemonitoring.Room.Database.AppDatabase
 import com.example.expensemonitoring.Room.RepositoryTypes.RoomCategoriesRepository
@@ -16,9 +17,12 @@ object Repositories {
     }
     private val dispatcher : CoroutineDispatcher = Dispatchers.IO
 
-    val categoriesRepository = RoomCategoriesRepository(database.getExpensesDao())
+    val categoriesRepository: RoomCategoriesRepository by lazy {
+         RoomCategoriesRepository(database.getExpensesDao())
+    }
 
     fun init(context: Context) {
         applicationContext = context
+        Log.d("CONTEXT_FLAG", context.toString())
     }
 }

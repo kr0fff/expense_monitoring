@@ -12,14 +12,11 @@ private var counterWithMutex = 0
 private var counterNoMutex = 0
 
 fun main( ) {
-    val dates = listOf(
-        LocalDate.parse("2018-12-14"),
-        LocalDate.parse("2018-12-12"),
-        LocalDate.parse("2018-12-13"))
-
-    for (item in dates){
-        println(item::class.simpleName)
-    }
+    runBlocking { mutexTest() }
+}
+inline fun <reified T> genericsExample(value: T) {
+    println(value)
+    println("Type of T: ${T::class.java}")
 }
 suspend fun mutexTest() {
     val job1NoMutex = CoroutineScope(Default).launch {

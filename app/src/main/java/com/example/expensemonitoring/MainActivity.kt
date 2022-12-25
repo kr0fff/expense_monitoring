@@ -14,13 +14,14 @@ import com.example.expensemonitoring.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+
         Repositories.init(applicationContext)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        PeriodSelectionDialogFragment.show(supportFragmentManager)
+    /*    PeriodSelectionDialogFragment.show(supportFragmentManager)
         PeriodSelectionDialogFragment.setupListener(supportFragmentManager, this){
             Log.d("MONTH_AND_YEAR", it.toString())
-        }
+        }*/
     }
 }
