@@ -1,6 +1,7 @@
 package com.example.expensemonitoring.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,25 +18,26 @@ import com.example.expensemonitoring.fragments.viewModels.ViewModelFactory
 
 
 class FragmentCategoriesList : Fragment() {
-    private val vm : CategoriesViewModel by viewModels {ViewModelFactory(Repositories)}
-    private lateinit var binding : FragmentCategoriesListBinding
-    private lateinit var adapter : CategoryAdapter
+    private val vm: CategoriesViewModel by viewModels { ViewModelFactory(Repositories) }
+    private lateinit var binding: FragmentCategoriesListBinding
+    private lateinit var adapter: CategoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        vm.getCategoriesList()
 
         binding = FragmentCategoriesListBinding.inflate(inflater)
+        vm.getCategoriesList()
 
         vm.categories.observe(viewLifecycleOwner, Observer {
-            adapter = CategoryAdapter(it)
+            if (it != null) {
+                adapter = CategoryAdapter(it)
+                binding.recyclerView.adapter = adapter
+                binding.recyclerView.layoutManager = LinearLayoutManager(context)
+            }
         })
-
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
         return binding.root
     }

@@ -1,5 +1,7 @@
 package com.example.expensemonitoring
 
+import android.content.res.Resources
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -20,8 +22,16 @@ class CategoryAdapter(
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = categories[position]
         with(holder.binding) {
-            categoryLabel.text = "${category!!.categoryMonth}" + " ${category!!.categoryYear}"
-            categoryDescriptionTotal.text =  category.categorySum.toString()
+            if (category != null) {
+
+                categoryLabel.text = String.format(R.string.category_label.toString(), category.categoryMonth, category.categoryYear)
+              /*  categoryLabel.text = getString(
+                    R.string.category_label,
+                    category.categoryMonth,
+                    category.categoryYear
+                )*/
+                categoryDescriptionTotal.text = category.categorySum.toString()
+            }
         }
     }
 

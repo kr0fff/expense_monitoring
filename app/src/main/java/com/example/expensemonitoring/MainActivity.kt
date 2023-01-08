@@ -10,6 +10,8 @@ import android.widget.TextView
 import com.example.expensemonitoring.Dialogs.PeriodSelectionDialogFragment
 import com.example.expensemonitoring.Room.Repositories
 import com.example.expensemonitoring.databinding.ActivityMainBinding
+import com.example.expensemonitoring.fragments.FragmentCategoriesList
+import com.example.expensemonitoring.fragments.FragmentNewExpenseDetails
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -17,11 +19,25 @@ class MainActivity : AppCompatActivity() {
 
         Repositories.init(applicationContext)
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-    /*    PeriodSelectionDialogFragment.show(supportFragmentManager)
-        PeriodSelectionDialogFragment.setupListener(supportFragmentManager, this){
-            Log.d("MONTH_AND_YEAR", it.toString())
-        }*/
+        binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
+        setSupportActionBar(binding.toolbar)
+
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragmentContainer, FragmentCategoriesList())
+                .commit()
+        }
+
+        binding.addButton.setOnClickListener {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, FragmentNewExpenseDetails())
+                .commit()
+        }
+        /*    PeriodSelectionDialogFragment.show(supportFragmentManager)
+            PeriodSelectionDialogFragment.setupListener(supportFragmentManager, this){
+                Log.d("MONTH_AND_YEAR", it.toString())
+            }*/
     }
 }

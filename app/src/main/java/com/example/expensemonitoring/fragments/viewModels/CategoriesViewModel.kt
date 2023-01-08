@@ -11,8 +11,8 @@ import kotlinx.coroutines.launch
 class CategoriesViewModel(private val repository: Repositories): ViewModel() {
     private val categoriesRepo = repository.categoriesRepository
 
-    private val _categories = MutableLiveData<List<CategoriesTuple?>>()
-    val categories: LiveData<List<CategoriesTuple?>> = _categories
+    private val _categories = MutableLiveData<List<CategoriesTuple?>?>()
+    val categories: LiveData<List<CategoriesTuple?>?> = _categories
 
     fun getCategoriesList() {
         viewModelScope.launch {
