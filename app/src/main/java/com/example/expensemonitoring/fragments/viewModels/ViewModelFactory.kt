@@ -14,6 +14,7 @@ class ViewModelFactory(
             CategoriesViewModel::class.java -> {
                 CategoriesViewModel(repository)
             }
+
             else -> {
                 throw IllegalStateException("Unknown view model class")
             }

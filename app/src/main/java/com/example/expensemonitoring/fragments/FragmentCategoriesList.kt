@@ -42,4 +42,14 @@ class FragmentCategoriesList : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.addButton.setOnClickListener {
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragmentContainer, FragmentNewExpenseDetails())
+                .commit()
+        }
+    }
+
 }

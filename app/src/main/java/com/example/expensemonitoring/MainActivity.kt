@@ -29,12 +29,6 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-        binding.addButton.setOnClickListener {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragmentContainer, FragmentNewExpenseDetails())
-                .commit()
-        }
         /*    PeriodSelectionDialogFragment.show(supportFragmentManager)
             PeriodSelectionDialogFragment.setupListener(supportFragmentManager, this){
                 Log.d("MONTH_AND_YEAR", it.toString())

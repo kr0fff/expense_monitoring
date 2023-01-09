@@ -4,7 +4,9 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.*
 
 private val mutex = Mutex()  // our hero ;-)
@@ -12,7 +14,16 @@ private var counterWithMutex = 0
 private var counterNoMutex = 0
 
 fun main( ) {
-    runBlocking { mutexTest() }
+//    runBlocking { mutexTest() }
+
+    val calendar = Calendar.getInstance()
+
+    println("${calendar.get(Calendar.YEAR)}\n" +
+            "        ${calendar.get(Calendar.MONTH)}\n" +
+            "        ${calendar.get(Calendar.DAY_OF_MONTH)}")
+
+
+
 }
 inline fun <reified T> genericsExample(value: T) {
     println(value)
