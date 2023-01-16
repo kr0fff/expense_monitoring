@@ -48,6 +48,7 @@ class FragmentCategoriesList : Fragment() {
             parentFragmentManager
                 .beginTransaction()
                 .replace(R.id.fragmentContainer, FragmentNewExpenseDetails())
+                .addToBackStack(null)
                 .commit()
         }
     }

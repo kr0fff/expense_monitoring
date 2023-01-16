@@ -26,12 +26,13 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragmentContainer, FragmentCategoriesList())
+                .addToBackStack(null)
                 .commit()
         }
 
-        /*    PeriodSelectionDialogFragment.show(supportFragmentManager)
+            PeriodSelectionDialogFragment.show(supportFragmentManager)
             PeriodSelectionDialogFragment.setupListener(supportFragmentManager, this){
                 Log.d("MONTH_AND_YEAR", it.toString())
-            }*/
+            }
     }
 }

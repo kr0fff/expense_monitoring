@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:gravity="center">
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/horizontal_date_picker_locator"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity=""
             android:orientation="vertical">
 
@@ -26,14 +33,14 @@
             <NumberPicker
                 android:id="@+id/picker_day"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp">
+                android:layout_height="wrap_content">
 
             </NumberPicker>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
@@ -47,13 +54,13 @@
             <NumberPicker
                 android:id="@+id/picker_month"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp">
+                android:layout_height="wrap_content">
             </NumberPicker>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
@@ -67,9 +74,32 @@
             <NumberPicker
                 android:id="@+id/picker_year"
                 android:layout_width="wrap_content"
-                android:layout_height="100dp">
+                android:layout_height="wrap_content">
             </NumberPicker>
         </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="username"
+        android:gravity="center"
+        android:hint="@string/decimal_value_uah"
+        android:inputType="numberDecimal"
+        android:minWidth="90dp"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontal_date_picker_locator"
+        app:layout_constraintVertical_bias="0.15" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/new_expense_apply_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
+</androidx.constraintlayout.widget.ConstraintLayout>
