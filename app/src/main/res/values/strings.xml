@@ -6,9 +6,12 @@
     <string name="day_of_the_month_selector">Day</string>
     <string name="dialog_period_selector_title">Choose month and year of period:</string>
     <string name="action_confirm">Confirm</string>
-    <string name="category_label">%1$s - %2$d</string>
+    <string name="category_description">%1$s of %2$s</string>
+    <string name="category_total">Total spent: ₴%1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="decimal_value_uah">₴0.00</string>
     <string name="new_expense_apply_btn">Apply</string>
+    <string name="expense_description_hint">Description of your expense</string>
+    <string name="expense_error_hint">Input format mismatch, should be like \'0.00\'</string>
 </resources>

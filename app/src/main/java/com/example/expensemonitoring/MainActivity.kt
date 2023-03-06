@@ -35,4 +35,13 @@ class MainActivity : AppCompatActivity() {
                 Log.d("MONTH_AND_YEAR", it.toString())
             }
     }
+
+    override fun onBackPressed() {
+        val count = supportFragmentManager.backStackEntryCount
+        if (count == 0) {
+            super.onBackPressed()
+        } else {
+            supportFragmentManager.popBackStack()
+        }
+    }
 }

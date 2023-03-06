@@ -33,7 +33,8 @@ class FragmentCategoriesList : Fragment() {
 
         vm.categories.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                adapter = CategoryAdapter(it)
+                Log.d("LIST_CATEGORIES", it.toString())
+                adapter = CategoryAdapter(it, resources)
                 binding.recyclerView.adapter = adapter
                 binding.recyclerView.layoutManager = LinearLayoutManager(context)
             }

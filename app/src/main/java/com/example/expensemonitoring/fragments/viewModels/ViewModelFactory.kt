@@ -14,7 +14,9 @@ class ViewModelFactory(
             CategoriesViewModel::class.java -> {
                 CategoriesViewModel(repository)
             }
-
+            ExpenseDetailsViewModel::class.java -> {
+                ExpenseDetailsViewModel(repository)
+            }
             else -> {
                 throw IllegalStateException("Unknown view model class")
             }

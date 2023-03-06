@@ -16,13 +16,8 @@ private var counterNoMutex = 0
 fun main( ) {
 //    runBlocking { mutexTest() }
 
-    val calendar = Calendar.getInstance()
-
-    println("${calendar.get(Calendar.YEAR)}\n" +
-            "        ${calendar.get(Calendar.MONTH)}\n" +
-            "        ${calendar.get(Calendar.DAY_OF_MONTH)}")
-
-
+    val str = "Holy goodness"
+    println(str.trim())
 
 }
 inline fun <reified T> genericsExample(value: T) {
