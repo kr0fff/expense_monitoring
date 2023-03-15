@@ -26,11 +26,6 @@ class CategoryAdapter(
                 val month = Month.of(category.categoryMonth.toInt())
                 val totalSpent = kotlin.math.round(category.categorySum * 100) / 100
                 categoryLabel.text = resources.getString(R.string.category_description, month, category.categoryYear)
-              /*  categoryLabel.text = getString(
-                    R.string.category_label,
-                    category.categoryMonth,
-                    category.categoryYear
-                )*/
                 categoryDescriptionTotal.text = resources.getString(R.string.category_total, totalSpent.toString())
             }
         }
