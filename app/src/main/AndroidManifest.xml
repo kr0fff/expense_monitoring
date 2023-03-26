@@ -8,11 +8,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ExpenseMonitoring">
-        <activity
-            android:name=".TestActivity"
-            android:exported="true">
 
-        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">

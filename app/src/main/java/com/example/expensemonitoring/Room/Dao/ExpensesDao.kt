@@ -16,6 +16,10 @@ interface ExpensesDao {
     @Delete(entity = Expenses::class)
     suspend fun deleteExpense(expense: Expenses)
 
+    @Query("DELETE FROM expenses" +
+            " WHERE strftime('%m', date) = :month AND strftime('%Y', date) = :year")
+    suspend fun deleteExpenseCategory(month: String, year: String)
+
     @Update(entity = Expenses::class)
     suspend fun updateExpense(expense:Expenses)
 

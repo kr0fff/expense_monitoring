@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 33
     buildFeatures {
         viewBinding true
     }
@@ -37,13 +37,12 @@ android {
 }
 
 dependencies {
-    'androidx.coordinatorlayout:coordinatorlayout:1.4.0'
 
     testImplementation "junit:junit:4+"
 
     implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'com.google.android.material:material:1.6.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
