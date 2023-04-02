@@ -5,14 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.expensemonitoring.CategoryAdapter
+import com.example.expensemonitoring.OnClickDeleteCategory
 import com.example.expensemonitoring.R
 import com.example.expensemonitoring.Room.Repositories
 import com.example.expensemonitoring.databinding.FragmentCategoriesListBinding
@@ -20,7 +18,7 @@ import com.example.expensemonitoring.fragments.viewModels.CategoriesViewModel
 import com.example.expensemonitoring.fragments.viewModels.ViewModelFactory
 
 
-class FragmentCategoriesList : Fragment() {
+class FragmentCategoriesList : Fragment(), OnClickDeleteCategory {
     private val vm: CategoriesViewModel by viewModels { ViewModelFactory(Repositories) }
     private lateinit var binding: FragmentCategoriesListBinding
     private lateinit var adapter: CategoryAdapter
@@ -29,17 +27,18 @@ class FragmentCategoriesList : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentCategoriesListBinding.inflate(inflater)
         vm.getCategoriesList()
 
         vm.categories.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                Log.d("LIST_CATEGORIES", it.toString())
-                adapter = CategoryAdapter(it, resources, requireContext())
+                adapter = CategoryAdapter(it, resources, requireContext(), this)
                 binding.recyclerView.adapter = adapter
                 binding.recyclerView.layoutManager = LinearLayoutManager(context)
+                Log.d("LIST_CATEGORIES", adapter.itemCount.toString())
+
             }
         })
 
@@ -68,6 +67,10 @@ class FragmentCategoriesList : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+    }
+
+    override fun onDeleteCategory(month: String, year: String) {
+        vm.deleteCategories(month, year)
     }
 
 }

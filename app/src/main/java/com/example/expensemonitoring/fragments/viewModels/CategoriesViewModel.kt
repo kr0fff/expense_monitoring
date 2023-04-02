@@ -14,6 +14,12 @@ class CategoriesViewModel(private val repository: Repositories): ViewModel() {
     private val _categories = MutableLiveData<List<CategoriesTuple?>?>()
     val categories: LiveData<List<CategoriesTuple?>?> = _categories
 
+    fun deleteCategories(month: String, year: String){
+        viewModelScope.launch{
+            categoriesRepo.deleteCategory(month, year)
+            _categories.value = categoriesRepo.getCategoriesRecords()
+        }
+    }
     fun getCategoriesList() {
         viewModelScope.launch {
             _categories.value = categoriesRepo.getCategoriesRecords()

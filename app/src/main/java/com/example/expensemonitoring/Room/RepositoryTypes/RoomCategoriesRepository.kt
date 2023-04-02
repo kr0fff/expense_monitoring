@@ -13,4 +13,7 @@ class RoomCategoriesRepository(
     suspend fun addExpenseRecord(expense: Expenses) {
         expensesDao.createExpense(expense)
     }
+    suspend fun deleteCategory(month: String, year: String) {
+        expensesDao.deleteExpenseCategory(month, year)
+    }
 }
