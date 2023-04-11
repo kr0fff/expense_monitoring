@@ -117,19 +117,18 @@ class FragmentNewExpenseDetails : Fragment() {
             val description = view.descriptionTitle.text.toString()
             val amount = view.decimalValueSetter.text.toString()
             val date = LocalDate.of(yyyy.toInt(), mm.toInt(), dd.toInt())
+
             val expense = Expenses.toExpense(
                 date = date.toString(),
                 description = description,
                 amount = amount.toDouble()
             )
+
             vm.addExpenseRecord(expense)
             parentFragmentManager.popBackStack()
         }
 
-        Log.d(
-            "DEBUG_PICKER",
-            "${view.pickerDay.value} ${view.pickerMonth.value} ${view.pickerYear.value}"
-        )
+
         return view.root
     }
 

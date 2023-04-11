@@ -8,21 +8,28 @@ import com.example.expensemonitoring.Room.Dao.CategoriesTuple
 import com.example.expensemonitoring.Room.Repositories
 import kotlinx.coroutines.launch
 
-class CategoriesViewModel(private val repository: Repositories): ViewModel() {
+class CategoriesViewModel(private val repository: Repositories) : ViewModel() {
     private val categoriesRepo = repository.categoriesRepository
 
     private val _categories = MutableLiveData<List<CategoriesTuple?>?>()
     val categories: LiveData<List<CategoriesTuple?>?> = _categories
 
-    fun deleteCategories(month: String, year: String){
-        viewModelScope.launch{
-            categoriesRepo.deleteCategory(month, year)
-            _categories.value = categoriesRepo.getCategoriesRecords()
-        }
-    }
-    fun getCategoriesList() {
+    init {
         viewModelScope.launch {
             _categories.value = categoriesRepo.getCategoriesRecords()
         }
     }
+
+    fun refreshCategories() {
+        viewModelScope.launch {
+            _categories.value = categoriesRepo.getCategoriesRecords()
+        }
+    }
+
+    fun deleteCategories(month: String, year: String) {
+        viewModelScope.launch {
+            categoriesRepo.deleteCategory(month, year)
+        }
+    }
+
 }

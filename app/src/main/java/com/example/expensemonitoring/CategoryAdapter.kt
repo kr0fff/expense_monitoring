@@ -7,17 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import com.example.expensemonitoring.Room.Dao.CategoriesTuple
 import com.example.expensemonitoring.databinding.ExpenseCategoryItemBinding
 import java.time.Month
 
 class CategoryAdapter(
-    private val categories: List<CategoriesTuple?>,
     private val resources: Resources,
     private val activityContext: Context?,
     private val onDeleteCategoryListener: OnClickDeleteCategory
-) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(), View.OnClickListener {
+) : ListAdapter<CategoriesTuple, CategoryAdapter.CategoryViewHolder>(ItemCallback), View.OnClickListener {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -29,7 +30,8 @@ class CategoryAdapter(
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        val category = categories[position]
+        val category = getItem(position)
+        Log.d("CATEGORY_ITEM" , "$category")
         holder.itemView.tag = category
         holder.deleteButton.tag = category
         with(holder.binding) {
@@ -58,6 +60,7 @@ class CategoryAdapter(
                         itemContent.categoryYear
                     )
                 }
+                Log.d("DELETE_CLICK", "${itemContent?.categoryMonth} - ${itemContent?.categoryYear}")
             }
 
             else -> {
@@ -72,8 +75,18 @@ class CategoryAdapter(
         }
     }
 
-    override fun getItemCount(): Int = categories.size
 
+    object ItemCallback : DiffUtil.ItemCallback<CategoriesTuple>() {
+        override fun areItemsTheSame(oldItem: CategoriesTuple, newItem: CategoriesTuple): Boolean {
+            return oldItem.categoryMonth == newItem.categoryMonth
+                    && oldItem.categoryYear == newItem.categoryYear
+                    && oldItem.categorySum == newItem.categorySum
+        }
+
+        override fun areContentsTheSame(oldItem: CategoriesTuple, newItem: CategoriesTuple): Boolean {
+            return oldItem == newItem
+        }
+    }
     class CategoryViewHolder(
         val binding: ExpenseCategoryItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {

@@ -30,17 +30,9 @@ class FragmentCategoriesList : Fragment(), OnClickDeleteCategory {
     ): View {
 
         binding = FragmentCategoriesListBinding.inflate(inflater)
-        vm.getCategoriesList()
-
-        vm.categories.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                adapter = CategoryAdapter(it, resources, requireContext(), this)
-                binding.recyclerView.adapter = adapter
-                binding.recyclerView.layoutManager = LinearLayoutManager(context)
-                Log.d("LIST_CATEGORIES", adapter.itemCount.toString())
-
-            }
-        })
+        adapter = CategoryAdapter(resources, requireContext(), this)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
 
 
@@ -49,6 +41,12 @@ class FragmentCategoriesList : Fragment(), OnClickDeleteCategory {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        vm.categories.observe(viewLifecycleOwner, Observer {
+            vm.refreshCategories()
+            adapter.submitList(it)
+            Log.d("LIST_CATEGORIES_LIVEDATA", it.toString())
+        })
 
 
         binding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
