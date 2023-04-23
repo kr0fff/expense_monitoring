@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.expensemonitoring.CategoryAdapter
-import com.example.expensemonitoring.OnClickDeleteCategory
+import com.example.expensemonitoring.CategoryOnClickActions
 import com.example.expensemonitoring.R
 import com.example.expensemonitoring.Room.Repositories
 import com.example.expensemonitoring.databinding.FragmentCategoriesListBinding
@@ -18,7 +18,7 @@ import com.example.expensemonitoring.fragments.viewModels.CategoriesViewModel
 import com.example.expensemonitoring.fragments.viewModels.ViewModelFactory
 
 
-class FragmentCategoriesList : Fragment(), OnClickDeleteCategory {
+class FragmentCategoriesList : Fragment(), CategoryOnClickActions {
     private val vm: CategoriesViewModel by viewModels { ViewModelFactory(Repositories) }
     private lateinit var binding: FragmentCategoriesListBinding
     private lateinit var adapter: CategoryAdapter
@@ -50,9 +50,9 @@ class FragmentCategoriesList : Fragment(), OnClickDeleteCategory {
 
 
         binding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
-            if (scrollY < oldScrollY && binding.addButton.visibility == View.VISIBLE) {
+            if (scrollY > oldScrollY && binding.addButton.visibility == View.VISIBLE) {
                 binding.addButton.hide()
-            } else if (scrollY > oldScrollY && binding.addButton.visibility != View.VISIBLE) {
+            } else if (scrollY < oldScrollY && binding.addButton.visibility != View.VISIBLE) {
                 binding.addButton.show()
             }
         }

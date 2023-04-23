@@ -1,5 +1,5 @@
 package com.example.expensemonitoring
 
-interface OnClickDeleteCategory {
+interface CategoryOnClickActions {
     fun onDeleteCategory(month: String, year: String)
 }
