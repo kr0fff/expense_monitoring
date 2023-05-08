@@ -19,6 +19,7 @@
             app:layout_scrollFlags="scroll|enterAlways|snap">
 
             <TextView
+                android:id="@+id/sort_by_date"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -30,6 +31,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/sort_by_value"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

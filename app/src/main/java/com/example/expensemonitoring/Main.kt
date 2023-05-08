@@ -1,6 +1,7 @@
 package com.example.expensemonitoring
 
 import android.widget.NumberPicker
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.sync.Mutex
@@ -14,16 +15,63 @@ private val mutex = Mutex()  // our hero ;-)
 private var counterWithMutex = 0
 private var counterNoMutex = 0
 
-fun main( ) {
+class Person(var name: String, var salary: Int)
+
+fun main() {
 //    runBlocking { mutexTest() }
 
-    val str = "Holy goodness"
-    println(str.trim())
+    /*var list = List(10){
+        index -> Person("$index", index* 10)
+    }
+    var sortedList = list.sortedWith(compareBy({it.salary}, {it.name})).reversed()
+    println(list == sortedList)*/
+    runBlocking {
+
+       /* var res = async {
+            for (i in 1 until 10) {
+                println("iterator: $i")
+            }
+        }.await()*/
+
+        coroutineScope {
+            withContext(Dispatchers.IO){
+                for (i in 1..10){
+                    println("Deferred coroutine called with iterator: $i")
+                }
+            }
+            launch {
+                for (i in 1..10){
+                    println("Other called with iterator: $i")
+                }
+            }
+        }
+
+       /* coroutineScope {
+            delay(1000L)
+            println("1")
+        }
+
+        println("main")
+        launch {
+            println("2")
+        }*/
+
+    }
 }
+
+suspend fun refreshCategories() {
+    coroutineScope {
+        withContext(Dispatchers.IO) {
+            println(coroutineContext)
+        }
+    }
+}
+
 inline fun <reified T> genericsExample(value: T) {
     println(value)
     println("Type of T: ${T::class.java}")
 }
+
 suspend fun mutexTest() {
     val job1NoMutex = CoroutineScope(Default).launch {
         for (i in 1..500) {
