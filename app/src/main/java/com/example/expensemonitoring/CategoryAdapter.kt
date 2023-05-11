@@ -1,23 +1,19 @@
 package com.example.expensemonitoring
 
-import android.content.Context
 import android.content.res.Resources
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ListAdapter
 import com.example.expensemonitoring.Room.Dao.CategoriesTuple
 import com.example.expensemonitoring.databinding.ExpenseCategoryItemBinding
-import com.example.expensemonitoring.fragments.FragmentCategoryExpensesList
 import java.time.Month
 
 class CategoryAdapter(
     private val resources: Resources,
-    private val activityContext: Context?,
     private val fragmentListener: CategoryOnClickActions
 ) : ListAdapter<CategoriesTuple, CategoryAdapter.CategoryViewHolder>(ItemCallback),
     View.OnClickListener {
@@ -34,8 +30,8 @@ class CategoryAdapter(
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = getItem(position)
         Log.d("CATEGORY_ITEM", "$category")
-        holder.itemView.tag = category
-        holder.deleteButton.tag = category
+        holder.itemView.tag = Pair<CategoriesTuple, Int>(category, position)
+        holder.deleteButton.tag = Pair<CategoriesTuple, Int>(category, position)
         with(holder.binding) {
             if (category != null) {
                 val month = Month.of(category.categoryMonth.toInt())
@@ -50,19 +46,18 @@ class CategoryAdapter(
     }
 
     override fun onClick(view: View) {
-        val itemContent = view.tag as? CategoriesTuple
+        val itemContent = view.tag as? Pair<*, *>
+        var tuple = itemContent?.first
+        val position = itemContent?.second
         Log.d("ITEM_CONTENT", "$itemContent")
         when (view.id) {
             R.id.delete_button -> {
-                if (itemContent != null) {
-
+                if (tuple != null && position != null) {
+                    tuple = tuple as CategoriesTuple
+                    notifyItemRemoved(position as Int)
                     fragmentListener.onDeleteCategory(
-                        itemContent.categoryMonth,
-                        itemContent.categoryYear
-                    )
-                    Log.d(
-                        "DELETE_CLICK",
-                        "${itemContent.categoryMonth} - ${itemContent.categoryYear}"
+                        tuple.categoryMonth,
+                        tuple.categoryYear
                     )
                 }
             }

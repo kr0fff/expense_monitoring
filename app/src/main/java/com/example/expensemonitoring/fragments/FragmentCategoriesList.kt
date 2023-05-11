@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.expensemonitoring.CategoryAdapter
 import com.example.expensemonitoring.CategoryOnClickActions
@@ -17,9 +15,6 @@ import com.example.expensemonitoring.Room.Repositories
 import com.example.expensemonitoring.databinding.FragmentCategoriesListBinding
 import com.example.expensemonitoring.fragments.viewModels.CategoriesViewModel
 import com.example.expensemonitoring.fragments.viewModels.ViewModelFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class FragmentCategoriesList : Fragment(), CategoryOnClickActions {
@@ -38,7 +33,7 @@ class FragmentCategoriesList : Fragment(), CategoryOnClickActions {
     ): View {
 
         binding = FragmentCategoriesListBinding.inflate(inflater)
-        adapter = CategoryAdapter(resources, requireContext(), this)
+        adapter = CategoryAdapter(resources, this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -51,7 +46,7 @@ class FragmentCategoriesList : Fragment(), CategoryOnClickActions {
         super.onViewCreated(view, savedInstanceState)
 
         vm.categories.observe(viewLifecycleOwner) {
-            //  vm.refreshCategories()
+            // vm.refreshCategories()
             Log.d("PROGRESS_DELETION", "From Fragment, liveData : ${vm.categories.value}")
             adapter.submitList(it)
         }
