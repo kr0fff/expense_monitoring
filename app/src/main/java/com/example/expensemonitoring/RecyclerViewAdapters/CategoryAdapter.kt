@@ -1,4 +1,4 @@
-package com.example.expensemonitoring
+package com.example.expensemonitoring.RecyclerViewAdapters
 
 import android.content.res.Resources
 import android.util.Log
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.ListAdapter
+import com.example.expensemonitoring.CategoryOnClickActions
+import com.example.expensemonitoring.R
 import com.example.expensemonitoring.Room.Dao.CategoriesTuple
 import com.example.expensemonitoring.databinding.ExpenseCategoryItemBinding
 import java.time.Month
@@ -54,11 +56,11 @@ class CategoryAdapter(
             R.id.delete_button -> {
                 if (tuple != null && position != null) {
                     tuple = tuple as CategoriesTuple
-                    notifyItemRemoved(position as Int)
                     fragmentListener.onDeleteCategory(
                         tuple.categoryMonth,
                         tuple.categoryYear
                     )
+                    notifyItemRemoved(position as Int)
                 }
             }
 
